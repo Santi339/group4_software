@@ -11,5 +11,7 @@
 <ul>
   <li>Spring Boot DevTools</li>
   <li>Spring Web</li>
-  <li>PDFBox 2.0.33</li>
+  <li>PDFBox 2.0.33 [reads pdf files]</li>
+  <li>Thymeleaf [renders html]</li>
 </ul>
+<h2 align="center">When running go <i><a href="http://localhost:8080">HERE</a></i></h2>
