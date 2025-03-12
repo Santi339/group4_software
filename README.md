@@ -1,5 +1,8 @@
-<h1 align="center">Audiobook Generator</h1>
-<p align="center">Software Engineering: Group 4</p>
+<div style="text-align:center">
+    <h1>Audiobook Generator</h1>
+    <p>Software Engineering: Group 4</p>
+    <h4><i>Currently working on a mockup and testing out some things</i></h4>
+</div>
 <h4>Specifications:</h4>
 <ul>
   <li>Build Tool: Maven</li>
@@ -14,4 +17,7 @@
   <li>PDFBox 2.0.33 [reads pdf files]</li>
   <li>Thymeleaf [renders html]</li>
 </ul>
-<h2 align="center">When running go <i><a href="http://localhost:8080">HERE</a></i></h2>
+
+<div style="text-align: center">
+    <h2>When running go <i><a href="http://localhost:8080">HERE</a></i></h2>
+</div>
