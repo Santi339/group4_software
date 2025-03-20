@@ -1,0 +1,39 @@
+.body{
+    -fx-background: #74c69d; /* Set Background Color */
+}
+
+.abg-label{
+    -fx-font-size: 45px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-text-fill: #1b4332;
+}
+
+.text-area{
+    -fx-font-size: 16px;
+    -fx-control-inner-background: #52b788;
+}
+
+.setting-label{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1b4332;
+}
+
+.setting-combo-box{
+    -fx-font-size: 16px;
+    -fx-control-inner-background: #52b788;
+    -fx-background-color: #52b788;
+}
+
+.speak-btn{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-color: #52b788;
+    -fx-text-fill: #1b4332;
+    -fx-padding: 0;
+}
+
+.speak-btn:pressed{
+    -fx-opacity: 0.50;
+}
