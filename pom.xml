@@ -90,20 +90,12 @@
  		<!-- MaryTTS Dependencies -->
 
  		<!-- MaryTTS Core Dependencies -->
-		<!-- https://mvnrepository.com/artifact/de.dfki.mary/marytts-runtime -->
-		<dependency>
-			<groupId>de.dfki.mary</groupId>
-			<artifactId>marytts-runtime</artifactId>
-			<version>5.2.1</version>
-		</dependency>
 
-        <!-- MaryTTS English Language Pack -->
-		<!-- https://mvnrepository.com/artifact/de.dfki.mary/marytts-lang-en -->
-		<dependency>
-			<groupId>de.dfki.mary</groupId>
-			<artifactId>marytts-lang-en</artifactId>
-			<version>5.2.1</version>
-		</dependency>
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>voice-cmu-slt-hsmm</artifactId>
+            <version>5.2.1</version>
+        </dependency>
 
         <!-- Required for audio playback -->
         <dependency>
@@ -112,22 +104,24 @@
             <version>1.0.1</version>
         </dependency>
 
+        <!--Java Version of RapidFuzz-->
+        <dependency>
+            <groupId>com.github.xdrop</groupId>
+            <artifactId>fuzzywuzzy</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
     </dependencies>
 
     <!-- ===== ADD REPOSITORY-DEPENDENT DEPENDENCY REPO LINKS HERE ===== -->
-	 <!-- EXAMPLE: -->
-		<repositories>
 			<!-- Your existing repositories (if any) -->
 			
 			<!-- MaryTTS releases -->
-			<!--	<repository>	-->
-			<!--		<id>marytts-releases</id>	-->
-			<!--		<url>https://repo.mary.dfki.de/repository/maven-public/</url>	-->
-			<!--	</repository>	-->
-
-		</repositories>
-
-	<!--END EXAMPLE ===== -->
+            <repositories>
+            <repository>
+                <url>https://raw.githubusercontent.com/DFKI-MLT/Maven-Repository/main</url>
+            </repository>
+            </repositories>
 
 
 	<build>
