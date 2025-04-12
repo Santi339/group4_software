@@ -106,9 +106,9 @@
 
         <!--Java Version of RapidFuzz-->
         <dependency>
-            <groupId>com.github.xdrop</groupId>
+            <groupId>me.xdrop</groupId>
             <artifactId>fuzzywuzzy</artifactId>
-            <version>1.0.6</version>
+            <version>1.4.0</version>
         </dependency>
 
     </dependencies>

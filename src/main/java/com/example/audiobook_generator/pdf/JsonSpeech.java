@@ -7,28 +7,47 @@ import marytts.exceptions.MaryConfigurationException;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
+import java.util.Iterator;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 //import Fuzzy Wuzzy
 import java.util.Scanner;
 
-public class JsonSpeech {
+import java.io.*;
+import javazoom.jl.converter.Converter;
+
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+
+
+
+public class JsonSpeech { //Class that changes txt from Json object to audio
  
-    private String jsonString;
-    private LocalMaryInterface marytts;
+    private JSONObject json; //idk if i need this
 
-    public JsonObj(String jsonString) {
-        try{
-        this.jsonString = jsonString;
-        LocalMaryInterface pdfbook = new LocalMaryInterface();
+    public String getJsonName(JSONObject json) { //returns json object name
+        this.json = json;
+        Iterator<String> json_keys = json.keys();
+        String text = json_keys.next(); //only getting first key AKA book text
+        Object firstValueFromObject = jsonObject.get(firstKey);
+        String firstValue = firstValueFromObject.toString();
+        return firstValue
         }
-        catch (Exception e){
-            System.out.println("Error downloading contents: " + e.getMessage());
-        }
-    }
 
-    public List<String> getVoicesAvail() {
+    public String getJsonTxt(JSONObject json) { //returns json object text
+        
+        this.json = json;
+        Iterator<String> json_keys = json.keys();
+        String text = json_keys.next().toString(); //only getting first key AKA book text
+        return text;
+        
+        }
+
+    public List<String> getVoicesAvail() { //returns list of voices available
         List<String> v_list = new ArrayList<>();
         try{
             voices = marytts.getAvailableVoices();
@@ -42,7 +61,7 @@ public class JsonSpeech {
         }
     }
 
-    public void getVoiceChoices() {
+    public void getVoiceChoices() { //prints voice choices
         List<String> v_list = getVoicesAvail();
         try{
             String msg = "Here are the different voices available for audio translation: \n";
@@ -56,32 +75,85 @@ public class JsonSpeech {
             System.out.println("Error retrieving voices: " + e.getMessage());
         }
 
-    public void setVoice(String input) {
+    public String setVoice() { //user chooses voice from selection available
         try{
-            List<String> v_list = getVoicesAvail();
+            List<String> v_list = getVoicesAvail(); //saving voices available
             getVoiceChoices(); //prints voice choices
             String msg = "Please choose which voice you'd like your audio file to be made with. Enter it below: \n";
             Scanner VoiceChoice = new Scanner(System.in);
             System.out.println(msg);
-            String input = VoiceChoice.nextLine()
+            String input = VoiceChoice.nextLine(); //getting user input/voice request
 
-            String msg2="We detected that you chose: "
-            #
+            String msg2="We detected that you chose: ";
+            int ratio;
+            int biggest_num = 0;
+            String best_match = "";
+            for item in v_list{
+                ratio = FuzzySearch.ratio(item, input);
+                if (biggest_num < ratio){
+                    biggest_num = ratio;
+                    best_match = item;
+                }
+            }
+            System.out.println(msg2, best_match, ". Is this correct?");
+            System.out.println("Please enter 'yes' or 'no': ");
+            Scanner Confirmation = new Scanner(System.in);
+            String input2 = Confirmation.nextLine(); //getting user input/voice request
+            if (input2.equalsIgnoreCase("no") || input2.equalsIgnoreCase("n")){
+                setVoice();
+            }
+            else {
+                System.out.println("Saving "+ best_match + " as your voice choice.");
+                return best_match;
+            }
+        }
+          
+        catch { (Exception e){
+            System.out.println("Error during processing: " + e.getMessage());
+        }
+        }
+    }
+   
+    public AudioInputStream makeAudio(String voice_choice, JSONObject json) { //Beginning of audio constructor
+        try{
+            text = getJsonTxt(json) //only getting first key AKA book text
+           
+            this.voice_choice = voice_choice; //setting voice choice
+           
+            LocalMaryInterface pdfbook = new LocalMaryInterface();
+            marytts.setVoice(voice_choice); //sets voice choice
+            AudioInputStream Txt_to_Audio = marytts.generateAudio(text);
+            return Txt_to_Audio;
+        }
+        catch (Exception e){
+            System.out.println("Error during processing: " + e.getMessage());
+        }   
+    }
+
+    public AudioFileFormat.Type.WAVE Download_WAV_File(AudioInputStream audio, JSONObject json) { //returns wav voice file
+        try{
+            firstValue = getJsonName(json); //getting json name
+            AudioSystem.write(audio, AudioFileFormat.Type.WAVE, new File((firstValue.trim()), ".wav"));
+            System.out.println("WAV file saved: " + (firstValue.trim()+ ".wav").getAbsolutePath());
         }
     }
 
-    public void ChooseVoice() {
-       
-        }
-    
-    public void setVoice(String voiceName) {
-        Voice voice = marytts.getVoice(voiceName);
-        if (voice != null) {
-            marytts.setVoice(voice);
-        } else {
-            System.out.println("Voice not found: " + voiceName);
+    public Converter Wav_to_MP3(AudioFileFormat.Type.WAVE wav_file, JSONObject json) { //returns mp3 file
+        try{
+            Converter converter = new Converter();
+            String name = getJsonName(json) + ".mp3";
+            converter.convert(wav_file, name)
+            if (new File(name).exists()) {
+                System.out.println("MP3 file saved: " + name.getAbsolutePath());
+        } 
+        catch (Exception e) {
+            System.out.println("Error creating your mp3"+ e.getMessage());
         }
     }
+
+
+
+    //optional additional fancy add-ons for audio generation
     public void setRate(int rate) {
         marytts.setRate(rate);
     }
