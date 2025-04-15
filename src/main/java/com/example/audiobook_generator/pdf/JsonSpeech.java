@@ -121,6 +121,7 @@ public class JsonSpeech { //Class that changes txt from Json object to audio
            
             LocalMaryInterface pdfbook = new LocalMaryInterface();
             marytts.setVoice(voice_choice); //sets voice choice
+            //pitch/augmentations go here
             AudioInputStream Txt_to_Audio = marytts.generateAudio(text);
             return Txt_to_Audio;
         }
