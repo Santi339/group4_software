@@ -1,27 +1,26 @@
-package src.main.java.com.example.audiobook_generator.pdf; //change later
+package com.example.audiobook_generator.pdf.PdfController;
 
-import marytts.util.data.audio.AudioPlayer;
-import marytts.modules.synthesis.Voice;
-import marytts.LocalMaryInterface;
-import marytts.exceptions.MaryConfigurationException;
+import marytts.util.data.audio.AudioPlayer; //check
+import marytts.modules.synthesis.Voice; //check
+import marytts.LocalMaryInterface; //check
+import marytts.exceptions.MaryConfigurationException; //check
 
-import org.json.JSONObject;
-import org.json.JSONArray;
-import java.util.Iterator;
+import org.json.JSONObject; //check
+import java.util.Iterator; //Check
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-//import Fuzzy Wuzzy
-import java.util.Scanner;
+import java.util.ArrayList; //check
+import java.util.List; //check
+import me.xdrop.fuzzywuzzy.FuzzySearch; //check
+import java.util.Scanner; //check
 
-import java.io.*;
-import javazoom.jl.converter.Converter;
+import java.io.File; //check
+import java.io.IOException; //check
 
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
+import javazoom.jl.converter.Converter; //check
+
+import javax.sound.sampled.AudioFileFormat; //check
+import javax.sound.sampled.AudioInputStream; //check
+import javax.sound.sampled.AudioSystem; //check
 
 
 
