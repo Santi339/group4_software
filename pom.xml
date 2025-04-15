@@ -1,138 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.3</version>
+        <relativePath/>
+    </parent>
 
     <groupId>com.example</groupId>
     <artifactId>AudioBookGenerator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>AudioBookGenerator</name>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version> <!-- Consistent with compiler -->
         <junit.version>5.10.2</junit.version>
-		<java.version>21</java.version>
         <marytts.version>5.2</marytts.version>
-		<pdfbox.version>2.0.33</pdfbox.version>
+        <pdfbox.version>2.0.33</pdfbox.version>
         <javafx.version>17.0.6</javafx.version>
         <bootstrapfx.version>0.4.0</bootstrapfx.version>
         <jlayer.version>1.0.1</jlayer.version>
+        <marytts.version>5.2.1</marytts.version> <!-- Latest stable version -->        
+        <marytts-runtime.version>${marytts.version}</marytts-runtime.version>
+        <marytts-common.version>${marytts.version}</marytts-common.version>
+        <marytts-signalproc.version>${marytts.version}</marytts-signalproc.version>
+        <marytts-utilities.version>${marytts.version}</marytts-utilities.version>    
+        <voice-cmu-slt-hsmm.version>5.2.1</voice-cmu-slt-hsmm.version>
     </properties>
 
-	<dependencies>
-	        <!-- Douglas dependencies -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <dependencies>
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+       <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-parent</artifactId>
-			<version>3.4.3</version> <!--can change to 3.4.4 if want to-->
-			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>2.0.33</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
-		<dependency>
+        <!-- PDFBox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>${pdfbox.version}</version>
+        </dependency> 
+        <!-- JavaFX -->
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.6</version>
+            <version>${javafx.version}</version>
         </dependency>
 
-		<dependency>
+        <!-- BootstrapFX -->
+        <dependency>
             <groupId>org.kordamp.bootstrapfx</groupId>
             <artifactId>bootstrapfx-core</artifactId>
-            <version>0.4.0</version>
+            <version>${bootstrapfx.version}</version>
         </dependency>
-		
+
+        <!-- JUnit -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
-			<scope>test</scope>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.2</version>
-			<scope>test</scope>
-		</dependency>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
- 		<!-- MaryTTS Dependencies -->
-
- 		<!-- MaryTTS Core Dependencies -->
-
+        <!-- MaryTTS Voice -->
         <dependency>
             <groupId>de.dfki.mary</groupId>
             <artifactId>voice-cmu-slt-hsmm</artifactId>
             <version>5.2.1</version>
         </dependency>
 
-        <!-- Required for audio playback -->
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>marytts-runtime</artifactId>
+            <version>5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>marytts-common</artifactId>
+            <version>5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>marytts-signalproc</artifactId>
+            <version>5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>marytts-utilities</artifactId>
+            <version>5.2</version>
+        </dependency>
+
+        <!-- JLayer for Audio Playback -->
         <dependency>
             <groupId>javazoom</groupId>
             <artifactId>jlayer</artifactId>
-            <version>1.0.1</version>
+            <version>${jlayer.version}</version>
         </dependency>
 
-        <!--Java Version of RapidFuzz-->
+        <!-- FuzzyWuzzy (RapidFuzz Java) -->
         <dependency>
             <groupId>me.xdrop</groupId>
             <artifactId>fuzzywuzzy</artifactId>
             <version>1.4.0</version>
         </dependency>
-
     </dependencies>
-
-    <!-- ===== ADD REPOSITORY-DEPENDENT DEPENDENCY REPO LINKS HERE ===== -->
-			<!-- Your existing repositories (if any) -->
-			
-			<!-- MaryTTS releases -->
-            <repositories>
-            <repository>
-                <url>https://raw.githubusercontent.com/DFKI-MLT/Maven-Repository/main</url>
-            </repository>
-            </repositories>
+    <repositories>
 
 
-	<build>
+
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>23</source>
-                    <target>23</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -141,11 +159,9 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.audiobookgenerator/com.example.audiobookgenerator.AudioBookGenerator
-                            </mainClass>
+                            <mainClass>com.example.audiobookgenerator.AudioBookGenerator</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -158,4 +174,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
