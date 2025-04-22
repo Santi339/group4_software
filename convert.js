@@ -32,20 +32,20 @@ async function extractWithVOCRFromURL(url) {
       : Object.values(result).join("\n");
 
     fs.writeFileSync(outputText, text);
-    console.log(`✅ Extracted text saved to ${outputText}`);
+    console.log(`Extracted text saved to ${outputText}`);
 
     const cleaned = cleanText(text);
-    if (!cleaned) throw new Error("❌ Cleaned text is empty or invalid.");
+    if (!cleaned) throw new Error("Cleaned text is empty or invalid.");
     return cleaned;
   } catch (err) {
-    console.error("❌ vOCR Error:", err.message);
+    console.error("vOCR Error:", err.message);
   }
 }
 
 //  Step 2: Convert cleaned text to speech (TTS)
 async function convertTextToSpeech(text) {
   try {
-    console.log("📤 Sending to TTS:", text);
+    console.log(" Sending to TTS:", text);
 
     const audioResponse = await jigsaw.audio.text_to_speech({
       text,
@@ -54,7 +54,7 @@ async function convertTextToSpeech(text) {
 
     const audioBuffer = await audioResponse.buffer();
     fs.writeFileSync(outputMP3, Buffer.from(audioBuffer));
-    console.log(`🔊 Audio saved to ${outputMP3}`);
+    console.log(` Audio saved to ${outputMP3}`);
   } catch (err) {
     console.error("❌ TTS Error:", err.message);
   }
