@@ -2,18 +2,18 @@ import fs from "fs";
 import path from "path";
 import { JigsawStack } from "jigsawstack";
 
-// 🔐 Replace with your JigsawStack API key
+
 const apiKey = "sk_0bb019834613159e8ae9fe1446187030c01ff05d8bc73596aca31e75482397a8aacf774046bad65e32d4d55416f3802c507579f95633b611a0595f93e0292314024r5B3QOuQ6vDXWnM1i3";
 const jigsaw = JigsawStack({ apiKey });
 
-// 📁 File paths
+//  File paths
 const outputText = path.resolve("output.txt");
 const outputMP3 = path.resolve("output.mp3");
 
-// 🌐 Public direct file URL (PDF or image)
+//  Public direct file URL (PDF or image)
 const fileURL = "https://nlsblog.org/wp-content/uploads/2020/06/true-pdf-sample-1.pdf";
 
-// 🧼 Clean and limit extracted text
+// Clean and limit extracted text
 function cleanText(text) {
   return text
     .replace(/\n+/g, " ")              // remove line breaks
@@ -22,7 +22,7 @@ function cleanText(text) {
     .slice(0, 500);                    // limit to 500 characters for TTS
 }
 
-// 📤 Step 1: Extract text from a PDF/image URL via vOCR
+//  Step 1: Extract text from a PDF/image URL via vOCR
 async function extractWithVOCRFromURL(url) {
   try {
     const result = await jigsaw.vision.vocr({ url });
@@ -42,7 +42,7 @@ async function extractWithVOCRFromURL(url) {
   }
 }
 
-// 🔊 Step 2: Convert cleaned text to speech (TTS)
+//  Step 2: Convert cleaned text to speech (TTS)
 async function convertTextToSpeech(text) {
   try {
     console.log("📤 Sending to TTS:", text);
@@ -60,7 +60,7 @@ async function convertTextToSpeech(text) {
   }
 }
 
-// 🚀 Run the full pipeline
+//  Run the full pipeline
 (async () => {
   const cleanedText = await extractWithVOCRFromURL(fileURL);
   if (cleanedText) {
